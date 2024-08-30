@@ -11,15 +11,15 @@ SkySense is a weather application designed to provide accurate and real-time wea
 * [License](#licnse)
 * [Contact](#contact)
 ## Features
-Real-Time Weather Data: Aggregates and displays weather data from multiple reliable sources.
+* Real-Time Weather Data: Aggregates and displays weather data from multiple reliable sources.
 
-## Data Validation
+* Data Validation:
 Ensures the accuracy and consistency of weather data before displaying it to users.
-## Interactive UI
+* Interactive UI:
 Features weather animations and touch-responsive elements for an engaging user experience.
-## Mobile Responsive
+* Mobile Responsive:
 Optimized for various screen sizes, ensuring usability on both phones and tablets.
-## Multi-Source Integration: 
+* Multi-Source Integration: 
 Reduces dependency on a single data provider by integrating multiple sources.
 ## Installation
 To get started with SkySense, follow these steps:
