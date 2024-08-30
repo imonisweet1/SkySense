@@ -120,8 +120,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Contact
 For any inquiries or feedback, feel free to reach out:
 
-Email: isaacimonivwerha@gmail.com
-GitHub: imonisweet1
+<br>Email: isaacimonivwerha@gmail.com</br>
+GitHub: [imonisweet1](https://github.com/imonisweet1/SkySense)
 
 Thank you for using SkySense! We hope it helps you stay informed about the weather.
 
