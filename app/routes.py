@@ -3,6 +3,13 @@ from app import app, db
 from app.models import User, Preferences
 import requests
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Fetch the API key from the environment variables
+API_KEY = os.getenv('WEATHER_API_KEY')
 
 @app.route('/')
 def index():
@@ -11,16 +18,28 @@ def index():
 @app.route('/weather/current', methods=['GET'])
 def current_weather():
     location = request.args.get('location')
-    api_key = os.getenv('WEATHER_API_KEY')
-    response = requests.get(f'http://api.weatherapi.com/v1/current.json?key={api_key}&q={location}')
-    return jsonify(response.json())
+    if not location:
+        return jsonify({'error': 'Location is required'}), 400
+
+    # Make a request to the weather API using the loaded API key
+    response = requests.get(f'http://api.weatherapi.com/v1/current.json?key={API_KEY}&q={location}')
+    if response.status_code == 200:
+        return jsonify(response.json())
+    else:
+        return jsonify({'error': 'Failed to fetch weather data'}), response.status_code
 
 @app.route('/weather/forecast', methods=['GET'])
 def weather_forecast():
     location = request.args.get('location')
-    api_key = os.getenv('WEATHER_API_KEY')
-    response = requests.get(f'http://api.weatherapi.com/v1/forecast.json?key={api_key}&q={location}&days=7')
-    return jsonify(response.json())
+    if not location:
+        return jsonify({'error': 'Location is required'}), 400
+
+    # Make a request to the weather API for the forecast
+    response = requests.get(f'http://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={location}&days=7')
+    if response.status_code == 200:
+        return jsonify(response.json())
+    else:
+        return jsonify({'error': 'Failed to fetch weather data'}), response.status_code
 
 @app.route('/user/preferences', methods=['POST'])
 def save_preferences():
@@ -40,5 +59,8 @@ def get_preferences():
     user = User.query.get(user_id)
     if user:
         preference = Preferences.query.filter_by(user_id=user_id).first()
-        return jsonify({'location': preference.location})
+        if preference:
+            return jsonify({'location': preference.location})
+        else:
+            return jsonify({'message': 'Preferences not found'}), 404
     return jsonify({'message': 'User not found'}), 404
